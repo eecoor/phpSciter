@@ -100,6 +100,7 @@ PHP_METHOD(phpsciter, setWindowFrame);
 PHP_METHOD(phpsciter, setWindowTitle);
 PHP_METHOD(phpsciter, loadFile);
 PHP_METHOD(phpsciter, loadHtml);
+PHP_METHOD(phpsciter, eval);
 PHP_METHOD(phpsciter, defineFunction);
 PHP_METHOD(phpsciter, ifDefined);
 PHP_METHOD(phpsciter, run);
