@@ -469,7 +469,7 @@ PHP_METHOD(phpsciter,eval)
     //scriptc = spprintf(&scriptc, 0, "%s", Z_STRVAL_P(script));
     //aux::a2w script_as_wstr(scriptc);
     VALUE re = NewValue();
-    SciterEval(Z_LVAL_P(hwnd),(byte *)Z_STRVAL_P(script),Z_STRLEN_P(script),&re);
+    SciterEval(Z_LVAL_P(hwnd),(byte *)Z_STRVAL_P(script),Z_STRLEN_P(script),0);
 
     RETURN_ZVAL(instance, 1, 0);
 }
