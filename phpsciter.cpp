@@ -472,7 +472,7 @@ PHP_METHOD(phpsciter,eval)
     //SciterEval(Z_LVAL_P(hwnd),(byte *)Z_STRVAL_P(script),Z_STRLEN_P(script),0);
   
     WCHAR *_str;
-    _str=scipt.c_str();
+    _str=script.c_str();
     VALUE re = NewValue();
     SciterLoadHtml(hwnd, LPCWSTR(_str),wcslen(_str),&re);
 
