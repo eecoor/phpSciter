@@ -472,7 +472,7 @@ PHP_METHOD(phpsciter,eval)
     //SciterEval(Z_LVAL_P(hwnd),(byte *)Z_STRVAL_P(script),Z_STRLEN_P(script),0);
   
     aux::a2w script_as_wstr(Z_STRVAL_P(script));
-    VALUE re = NewValue();
+    SCITER_VALUE re = (SCITER_VALUE)NewValue();
     SciterEval((HWND)Z_LVAL_P(hwnd), LPCWSTR(script_as_wstr.c_str()),wcslen(script_as_wstr),&re);
 
     RETURN_ZVAL(instance, 1, 0);
