@@ -56,6 +56,7 @@ extern zend_module_entry phpsciter_module_entry;
 #define PHPSCITER_PROPERTY_TITLE                "title"
 #define PHPSCITER_PROPERTY_LOAD_FILE            "load_file"
 #define PHPSCITER_PROPERTY_LOAD_HTML            "load_html"
+#define PHPSCITER_PROPERTY_HWND            "hWndSciter"
 
 
 #ifdef PHP_WIN32
