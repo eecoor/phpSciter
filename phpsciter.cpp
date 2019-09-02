@@ -463,12 +463,13 @@ PHP_METHOD(phpsciter,eval)
     }
 
     instance = getThis();
+ 
     hwnd = PHPSCITER_ZEND_READ_PROPERTY(phpsciter_ce, instance, ZEND_STRL(PHPSCITER_PROPERTY_HWND));
     
-    scriptc = spprintf(&scriptc, 0, "%s", Z_STRVAL_P(script));
-  
-    aux::a2w script_as_wstr(scriptc);
-    SciterEval(Z_LVAL_P(hwnd),LPCWSTR(script_as_wstr.c_str()),0,0);
+    //scriptc = spprintf(&scriptc, 0, "%s", Z_STRVAL_P(script));
+    //aux::a2w script_as_wstr(scriptc);
+    VALUE re = NewValue();
+    SciterEval(Z_LVAL_P(hwnd),(byte *)Z_STRVAL_P(script),Z_STRLEN_P(script),&re);
 
     RETURN_ZVAL(instance, 1, 0);
 }
