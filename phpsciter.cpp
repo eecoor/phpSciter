@@ -313,7 +313,7 @@ PHP_METHOD(phpsciter, run)
 
     HWINDOW hw = SciterCreateWindow(SW_MAIN | SW_ALPHA | SW_TOOL, &frame, 0,0,0);
 
-    PHPSCITER_ZEND_UPDATE_PROPERTY_LONG(phpsciter_ce, instance, ZEND_STRL(PHPSCITER_PROPERTY_HWND), hw);
+    PHPSCITER_ZEND_UPDATE_PROPERTY_LONG(phpsciter_ce, instance, ZEND_STRL(PHPSCITER_PROPERTY_HWND), (zend_long)hw);
   
     SciterSetCallback(hw, &SciterViewCallback, NULL);
 //    SciterSetWindowTitle(hw,Z_STRVAL_P(title));
