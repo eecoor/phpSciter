@@ -473,7 +473,7 @@ PHP_METHOD(phpsciter,eval)
   
     aux::a2w script_as_wstr(Z_STRVAL_P(script));
     VALUE re = NewValue();
-    SciterLoadHtml(hwnd, LPCWSTR(script_as_wstr.c_str()),wcslen(script_as_wstr),&re);
+    SciterLoadHtml(Z_LVAL_P(hwnd), LPCWSTR(script_as_wstr.c_str()),wcslen(script_as_wstr),&re);
 
     RETURN_ZVAL(instance, 1, 0);
 }
