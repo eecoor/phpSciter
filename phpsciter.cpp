@@ -454,7 +454,7 @@ PHP_METHOD(phpsciter,eval)
 {
     zval *instance;
     zval *hwnd;
-    zend_string *script = NULL;
+    zval *script;
     char *scriptc = NULL;
   
     if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "S", &script) == FAILURE)
@@ -468,8 +468,13 @@ PHP_METHOD(phpsciter,eval)
     
     //scriptc = spprintf(&scriptc, 0, "%s", Z_STRVAL_P(script));
     //aux::a2w script_as_wstr(scriptc);
+    //VALUE re = NewValue();
+    //SciterEval(Z_LVAL_P(hwnd),(byte *)Z_STRVAL_P(script),Z_STRLEN_P(script),0);
+  
+    WCHAR *_str;
+    _str=scipt.c_str();
     VALUE re = NewValue();
-    SciterEval(Z_LVAL_P(hwnd),(byte *)Z_STRVAL_P(script),Z_STRLEN_P(script),0);
+    SciterLoadHtml(hwnd, LPCWSTR(_str),wcslen(_str),&re);
 
     RETURN_ZVAL(instance, 1, 0);
 }
