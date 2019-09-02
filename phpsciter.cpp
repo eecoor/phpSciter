@@ -48,6 +48,10 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_INFO_EX(phpsciter_loadHtml_arginfo, 0, 0, 1)
 ZEND_ARG_INFO(0, html)
 ZEND_END_ARG_INFO()
+  
+ZEND_BEGIN_ARG_INFO_EX(phpsciter_eval_arginfo, 0, 0, 1)
+ZEND_ARG_INFO(0, script)
+ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(phpsciter_defineFunction_arginfo, 0, 0, 1)
 ZEND_ARG_INFO(0, event_name)
@@ -75,6 +79,7 @@ const zend_function_entry phpsciter_methods[] =
     PHP_ME(phpsciter, setWindowTitle, phpsciter_setWindowTitle_arginfo, ZEND_ACC_PUBLIC)
     PHP_ME(phpsciter, loadFile, phpsciter_loadFile_arginfo, ZEND_ACC_PUBLIC)
     PHP_ME(phpsciter, loadHtml, phpsciter_loadHtml_arginfo, ZEND_ACC_PUBLIC)
+    PHP_ME(phpsciter, eval, phpsciter_eval_arginfo, ZEND_ACC_PUBLIC)
 
     PHP_ME(phpsciter, defineFunction, phpsciter_defineFunction_arginfo, ZEND_ACC_PUBLIC)
     PHP_ME(phpsciter, ifDefined, phpsciter_ifDefined_arginfo, ZEND_ACC_PUBLIC)
@@ -441,6 +446,29 @@ PHP_METHOD(phpsciter,loadHtml)
 
     PHPSCITER_ZEND_UPDATE_PROPERTY_STRING(phpsciter_ce, instance, ZEND_STRL(PHPSCITER_PROPERTY_LOAD_HTML), ZSTR_VAL(html));
     PHPSCITER_G(loadHtml) = TRUE;
+
+    RETURN_ZVAL(instance, 1, 0);
+}
+
+PHP_METHOD(phpsciter,eval)
+{
+    zval *instance;
+    zval *hwnd;
+    zend_string *script = NULL;
+    char *scriptc = NULL;
+  
+    if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "S", &script) == FAILURE)
+    {
+        return;
+    }
+
+    instance = getThis();
+    hwnd = PHPSCITER_ZEND_READ_PROPERTY(phpsciter_ce, instance, ZEND_STRL(PHPSCITER_PROPERTY_HWND));
+    
+    scriptc = spprintf(&scriptc, 0, "%s", Z_STRVAL_P(script));
+  
+    aux::a2w script_as_wstr(scriptc);
+    SciterEval(Z_LVAL_P(hwnd),LPCWSTR(script_as_wstr.c_str()),0,0);
 
     RETURN_ZVAL(instance, 1, 0);
 }
