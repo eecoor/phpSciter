@@ -218,6 +218,7 @@ initInstance:
     PHPSCITER_ZEND_UPDATE_PROPERTY_LONG(phpsciter_ce, instance, ZEND_STRL(PHPSCITER_PROPERTY_FRAME_LEFT), 0);
     PHPSCITER_ZEND_UPDATE_PROPERTY_LONG(phpsciter_ce, instance, ZEND_STRL(PHPSCITER_PROPERTY_FRAME_RIGHT), 0);
     PHPSCITER_ZEND_UPDATE_PROPERTY_LONG(phpsciter_ce, instance, ZEND_STRL(PHPSCITER_PROPERTY_FRAME_BOTTOM), 0);
+    PHPSCITER_ZEND_UPDATE_PROPERTY_LONG(phpsciter_ce, instance, ZEND_STRL(PHPSCITER_PROPERTY_HWND), 0);
 
     if (get_instance_array && IS_ARRAY == Z_TYPE_P(get_instance_array))
     {
@@ -312,6 +313,8 @@ PHP_METHOD(phpsciter, run)
 
     HWINDOW hw = SciterCreateWindow(SW_MAIN | SW_ALPHA | SW_TOOL, &frame, 0,0,0);
 
+    PHPSCITER_ZEND_UPDATE_PROPERTY_LONG(phpsciter_ce, instance, ZEND_STRL(PHPSCITER_PROPERTY_HWND), hw);
+  
     SciterSetCallback(hw, &SciterViewCallback, NULL);
 //    SciterSetWindowTitle(hw,Z_STRVAL_P(title));
 
